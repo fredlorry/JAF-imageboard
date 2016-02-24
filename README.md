@@ -8,7 +8,11 @@
 
 Ментор: Кутылёв Сергей Александрович.
 
-###F.A.Q.
+###Мокап интерфейса: 
+![Image Alt](https://github.com/fredlorry/JAF-imageboard/blob/master/SiteMockup.png)
 
-#####1. Чем открывать .xml, лежащий в этом репозитории?
-Открывать их нужно в веб-приложении [draw.io](https://www.draw.io/).
+###Диаграмма активности по мотивам UML2:
+![Image Alt](https://github.com/fredlorry/JAF-imageboard/blob/master/UserActivityDiagram.png)
+
+###Диаграмма последовательности по мотивам UML2:
+![Image Alt](https://github.com/fredlorry/JAF-imageboard/blob/master/UserActivityDiagram.png)
