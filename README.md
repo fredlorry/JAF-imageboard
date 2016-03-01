@@ -15,4 +15,4 @@
 ![Image Alt](https://github.com/fredlorry/JAF-imageboard/blob/master/diagrams/UserActivityDiagram.png)
 
 ###Диаграмма последовательности по мотивам UML2:
-![Image Alt](https://github.com/fredlorry/JAF-imageboard/blob/master/diagrams/UserActivityDiagram.png)
+![Image Alt](https://github.com/fredlorry/JAF-imageboard/blob/master/diagrams/UserSequenceDiagram.png)
