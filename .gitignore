@@ -64,3 +64,6 @@ target/
 
 # XML sources for diagrams
 diagrams/*.xml
+
+#Virtual Environment
+venv/
