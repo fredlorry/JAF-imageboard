@@ -9,10 +9,10 @@
 Ментор: Кутылёв Сергей Александрович.
 
 ###Мокап интерфейса: 
-![Image Alt](https://github.com/fredlorry/JAF-imageboard/blob/master/SiteMockup.png)
+![Image Alt](https://github.com/fredlorry/JAF-imageboard/blob/master/diagrams/SiteMockup.png)
 
 ###Диаграмма активности по мотивам UML2:
-![Image Alt](https://github.com/fredlorry/JAF-imageboard/blob/master/UserActivityDiagram.png)
+![Image Alt](https://github.com/fredlorry/JAF-imageboard/blob/master/diagrams/UserActivityDiagram.png)
 
 ###Диаграмма последовательности по мотивам UML2:
-![Image Alt](https://github.com/fredlorry/JAF-imageboard/blob/master/UserActivityDiagram.png)
+![Image Alt](https://github.com/fredlorry/JAF-imageboard/blob/master/diagrams/UserActivityDiagram.png)
