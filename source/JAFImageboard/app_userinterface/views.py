@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
-from django.views.generic import View, TemplateView
+from django.views.generic import View, TemplateView, RedirectView
 
 # Create your views here.
 
@@ -17,5 +17,6 @@ class ThreadpageView(TemplateView):
     """Threadpage view."""
     template_name = "threadpage.html"
 
-def homepage_redirect(request):
-    return HttpResponseRedirect("/")
+class RedirectToHomepage(RedirectView):
+    """RedirectToHomepage"""
+    url='/'
