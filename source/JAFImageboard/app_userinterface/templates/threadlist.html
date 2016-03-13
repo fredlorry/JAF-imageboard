@@ -1,10 +1,21 @@
-<html>
-<head></head>
-<body>
-    This is list of threads for topic /{{ tpc }}/.
-    <br> You can choose from those:
-    <br> <a href='/{{ tpc }}/1/'>1. First</a>
-    <br> <a href='/{{ tpc }}/2/'>2. Second</a>
-    <br> <a href='/{{ tpc }}/3/'>3. Third</a>
-</body>
-</html>
+<h1> Basic topicpage </h1>
+<h2>Create new thread:</h2>
+<form action="/{{  tpc }}/new/" method="post">
+    {% csrf_token %}
+    <label for="title">Title:</label>
+    <input id="title" type="text" name="title">
+    <input type="submit" value="Send.">
+</form>
+<h2> Threads list:</h2>
+<h3>
+{% if threads %}
+    <ul>
+    {% for thread in threads %}
+        <li><a href="/{{ thread.tpc }}/{{ thread.id }}/">#{{ thread.id }}</a>, {{ thread.title }}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No threads are available.</p>
+{% endif %}
+</h3>
+Back to <a href="{% url "homepage" %}">homepage.</a>

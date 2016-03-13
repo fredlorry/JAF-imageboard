@@ -1,10 +1,13 @@
-<html>
-<head></head>
-<body>
-    Hello, world. You're at the homepage.
-    <br> It's supposed to be a list of available topics.
-    <br> Check out thread <a href='/rus/'>rus</a>, for example.
-    <br> Or <a href='/vg/'>vg</a>.
-    <br> Actually, any combination of 2 or 3 letters will do.
-</body>
-</html>
+<h1> Basic Homepage </h1>
+<h2> Topics list:</h2>
+<h3>
+{% if topics %}
+    <ul>
+    {% for topic in topics %}
+        <li><a href="/{{ topic.name }}/">{{ topic.name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No topics are available.</p>
+{% endif %}
+</h3>

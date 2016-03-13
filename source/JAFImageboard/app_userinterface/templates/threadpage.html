@@ -1,6 +1,23 @@
-<html>
-<head></head>
-<body>
-    This is thread page for thread №{{ thr }} from topic {{ tpc }}.
-</body>
-</html>
+<h1> Basic threadpage </h1>
+<h2> {{ thr_title }}</h2>
+<h3> Messages list:</h3>
+{% if messages %}
+    <ul>
+    {% for message in messages %}
+        <li>#{{ message.id }}; Date: {{ message.date}} <br>
+            {{ message.text }}
+        </li>
+    <br>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No messages are available for this thread.</p>
+{% endif %}
+<h3>Your message:</h3>
+<form action="/{{  tpc }}/{{  thr }}/" method="post">
+    {% csrf_token %}
+    <input id="text" type="text" name="text">
+    <input type="submit" value="Send.">
+</form>
+Back to <a href="/{{ tpc }}/">thread list.</a><br>
+Back to <a href="{% url "homepage" %}">homepage.</a>
