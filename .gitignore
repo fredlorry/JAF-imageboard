@@ -67,3 +67,6 @@ diagrams/*.xml
 
 #Virtual Environment
 venv/
+
+# Mac
+.DS_store
