@@ -1,13 +1,26 @@
-<h1> Basic Homepage </h1>
-<h2> Topics list:</h2>
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <span class="label label-danger">
+        <h2 class="thread"> Topics list: </h2 class="thread">
+    </span>
+</div>
 <h3>
 {% if topics %}
-    <ul>
     {% for topic in topics %}
-        <li><a href="/{{ topic.name }}/">{{ topic.name }}</a></li>
+        <p>
+            <a href="/{{ topic.name }}/" class="btn btn-danger">
+                /{{ topic.name }}/
+            </a>
+        </p>
     {% endfor %}
-    </ul>
+
 {% else %}
     <p>No topics are available.</p>
 {% endif %}
 </h3>
+{% endblock content %}
+
+{% block footer_urls %}
+<li> <a href="/"> Home </a> </li>
+{% endblock footer_urls %}

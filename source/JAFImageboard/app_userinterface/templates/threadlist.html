@@ -1,21 +1,40 @@
-<h1> Basic topicpage </h1>
-<h2>Create new thread:</h2>
-<form action="/{{  tpc }}/new/" method="post">
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <span class="label label-danger">
+        <h2 class="thread"> Create new thread: </h2 class="thread">
+    </span>
+</div>
+
+<form action="/{{  tpc }}/new/" method="post"class="form-group">
     {% csrf_token %}
-    <label for="title">Title:</label>
-    <input id="title" type="text" name="title">
-    <input type="submit" value="Send.">
+    <input id="text" type="text" name="text" class="form-control form-control-carrot">
 </form>
-<h2> Threads list:</h2>
+
+<div class="container">
+    <span class="label label-danger">
+        <h2 class="thread"> Threads list: </h2 class="thread">
+    </span>
+</div>
+
 <h3>
 {% if threads %}
-    <ul>
     {% for thread in threads %}
-        <li><a href="/{{ thread.tpc }}/{{ thread.id }}/">#{{ thread.id }}</a>, {{ thread.title }}</li>
+    
+        <p> <!-- <span class="label label-danger">#{{ thread.id }}</span> -->
+            <a href="/{{ thread.tpc }}/{{ thread.id }}/" class="btn btn-danger">
+                {{ thread.title }}
+            </a>
+        </p>
+    
     {% endfor %}
-    </ul>
+
 {% else %}
     <p>No threads are available.</p>
 {% endif %}
 </h3>
-Back to <a href="{% url "homepage" %}">homepage.</a>
+{% endblock content %}
+
+{% block footer_urls %}
+<li> <a href="/"> Home </a> </li>
+{% endblock footer_urls %}

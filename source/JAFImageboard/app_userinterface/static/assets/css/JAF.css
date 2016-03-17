@@ -1,0 +1,76 @@
+.navigation-JAF{
+/*    background-image: url('../paper_img/red.jpg');
+    background-position: center center;
+    background-size: cover;
+    background-attachment: fixed;*/
+    padding: 15px;
+    background-color: #FC574C;
+    margin-top:0;
+}
+
+.wrapper {
+    text-align: center;
+}
+
+.navbar-transparent .navbar-brand,
+[class*="navbar-ct"] .navbar-brand {
+    float: none;
+    line-height: 1.42857143;
+}
+
+.footer {
+   position: fixed;
+   bottom: 0px;
+   width:100%;
+   height:40px;
+   padding:10px;
+}
+
+.footer-demo nav > ul > li {
+    display: inline-block;
+    padding: 0px 20px;
+    margin: 0 0; 
+    line-height: 20px;
+    text-align: center;
+}
+
+.carrot {
+    color: #FC574C;
+    text-align: center;
+}
+
+.form-control-carrot {   
+    background-color: rgb(255, 207, 185);
+    color: #FC574C;
+    text-align: center;
+    border-radius: 0px;
+}
+
+.form-control-carrot-msg {   
+    margin-bottom: 40px;
+}
+
+.label {
+    padding: 15px;
+    padding-left: 25px;
+    padding-right: 25px;
+    border-radius: 20px;
+    margin: 10px;
+}
+
+h4, .h4 {
+    margin: 0 0 0;
+}
+
+h3, .h3 {
+    margin: 0 0 0;
+}
+
+.alert-carrot-light {
+    background-color: rgb(255, 207, 185);
+}
+
+.thread {
+    font-weight: 800;
+    margin: 0px 0 0px;
+}

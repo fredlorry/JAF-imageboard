@@ -11,7 +11,10 @@ class HomepageView(ListView):
     context_object_name = "topics"
     def get_queryset(self):
         return TopicModel.objects.order_by('name')
-
+    def get_context_data(self):
+        context = super(ListView, self).get_context_data()
+        context['title'] = "Homepage"
+        return context
 
 class ThreadlistView(ListView):
     """Threadlist view."""
@@ -25,6 +28,7 @@ class ThreadlistView(ListView):
     def get_context_data(self):
         context = super(ListView, self).get_context_data()
         context["tpc"] = self.kwargs["tpc"]
+        context["title"] = "/" + self.kwargs["tpc"] + "/"
         return context
 
 
@@ -55,6 +59,7 @@ class ThreadpageView(ListView):
         context["thr"] = self.kwargs["thr"]
         context["thr_title"] = ThreadModel.objects.get(id=self.kwargs["thr"]).title
         context["tpc"] = self.kwargs["tpc"]
+        context["title"] = "/" + self.kwargs["tpc"] + "/"
         return context
 
     def post(self, request, *args, **kwargs):

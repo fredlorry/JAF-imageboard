@@ -1,23 +1,47 @@
-<h1> Basic threadpage </h1>
-<h2> {{ thr_title }}</h2>
-<h3> Messages list:</h3>
+{% extends 'base.html' %}
+
+{% block head_url %}
+{{ tpc }}
+{% endblock head_url %}
+
+{% block content %}
+<div class="container">
+    <span class="label label-danger">
+        <h2 class="thread"> {{ thr_title }} </h2 class="thread">
+    </span>
+</div>
 {% if messages %}
-    <ul>
+
     {% for message in messages %}
-        <li>#{{ message.id }}; Date: {{ message.date}} <br>
-            {{ message.text }}
-        </li>
-    <br>
+    <hr>
+        <span class="label label-default">
+            <h4>
+                #{{ message.id }};
+                <small>
+                    {{ message.date}}
+                </small>
+            </h4>
+        </span>
+        <p class="carrot">{{ message.text }}</p>
+    <hr>
     {% endfor %}
-    </ul>
+
 {% else %}
     <p>No messages are available for this thread.</p>
 {% endif %}
-<h3>Your message:</h3>
-<form action="/{{  tpc }}/{{  thr }}/" method="post">
+<span class="label label-default">
+    <h4>
+        Your message:
+    </h4>
+</span>
+
+<form action="/{{  tpc }}/{{  thr }}/" method="post" class="form-group">
     {% csrf_token %}
-    <input id="text" type="text" name="text">
-    <input type="submit" value="Send.">
+    <input id="text" type="text" name="text" class="form-control form-control-carrot form-control-carrot-msg">
 </form>
-Back to <a href="/{{ tpc }}/">thread list.</a><br>
-Back to <a href="{% url "homepage" %}">homepage.</a>
+{% endblock content %}
+
+{% block footer_urls %}
+<li> <a href="/"> Home </a> </li>
+<li> <a href="/{{ tpc }}"> /{{ tpc }}/ </a></li>
+{% endblock footer_urls %}
