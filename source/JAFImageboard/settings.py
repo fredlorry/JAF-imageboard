@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'JAFImageboard.app_userinterface',
+    'widget_tweaks'
 ]
 
 MIDDLEWARE_CLASSES = [

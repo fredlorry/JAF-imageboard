@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
-
+{% load widget_tweaks %}
 {% block head_url %}
 {{ tpc }}
 {% endblock head_url %}
 
 {% block content %}
-<div class="container">
+<div class="container-fluid">
     <span class="label label-danger">
-        <h2 class="thread"> {{ thr_title }} </h2 class="thread">
+        <p class="thread"> {{ thr_title }} </p class="thread">
     </span>
 </div>
 {% if messages %}
@@ -27,7 +27,9 @@
     {% endfor %}
 
 {% else %}
-    <p>No messages are available for this thread.</p>
+    <hr>
+        <p>No messages are available for this thread.</p>
+    <hr>
 {% endif %}
 <span class="label label-default">
     <h4>
@@ -37,8 +39,10 @@
 
 <form action="/{{  tpc }}/{{  thr }}/" method="post" class="form-group">
     {% csrf_token %}
-    <input id="text" type="text" name="text" class="form-control form-control-carrot form-control-carrot-msg">
+    {{ form.message_text|attr:"class:form-control form-control-carrot form-control-carrot-msg" }}
 </form>
+<hr>
+
 {% endblock content %}
 
 {% block footer_urls %}

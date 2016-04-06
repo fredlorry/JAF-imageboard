@@ -68,5 +68,10 @@ diagrams/*.xml
 #Virtual Environment
 venv/
 
+<<<<<<< Updated upstream
 # Mac
 .DS_store
+=======
+#Don't bother yourself reading gitignore's
+source/JAFImageboard/app_userinterface/static/assets/paper_img/
+>>>>>>> Stashed changes
