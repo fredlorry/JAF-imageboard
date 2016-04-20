@@ -8,6 +8,7 @@
     margin-top:0;
 }
 
+
 .wrapper {
     text-align: center;
 }
@@ -74,5 +75,23 @@ h3, .h3 {
     font-weight: 800;
     margin: 0px 0 0px;
     font-size: 3em;
+}
+
+@media only screen and (max-width: 720px) {
+    .thread {
+        font-size: 2em;        
+    }
+}
+
+@media only screen and (max-width: 420px) {
+    .thread {
+        font-size: 1.5em;        
+    }
+}
+
+@media only screen and (max-width: 320px) {
+    .thread {
+        font-size: 1.2em;        
+    }
 }
 
