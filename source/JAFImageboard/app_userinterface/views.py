@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.views.generic import View, TemplateView, RedirectView, ListView
 
 from .models import MessageModel, TopicModel, ThreadModel
@@ -83,7 +83,11 @@ class ThreadpageView(ListView):
                                         thr=ThreadModel.objects.get(id=kwargs["thr"])
                                         )
             fresh_message.save()
-        return self.get(self, self.request, self.args, self.kwargs)
+        model = MessageModel.objects.filter(thr=kwargs["thr"]).latest("pk")
+        response = {}
+        response["messageText"] = model.text
+        response["messageDate"] = str(model.date)
+        return JsonResponse(response)
 
 
 class RedirectToHomepage(RedirectView):

@@ -39,11 +39,10 @@
     </h4>
 </span>
 <br>
-<button onclick="submitFakeMessage()">Try it</button>
 
 <form action="/{{  tpc }}/{{  thr }}/" method="post" class="form-group" id="newMessageForm">
     {% csrf_token %}
-    {{ form.message_text|attr:"class:form-control form-control-carrot form-control-carrot-msg, id:messageText" }}
+    {{ form.message_text|attr:"class:form-control form-control-carrot form-control-carrot-msg" }}
 </form>
 <hr>
 

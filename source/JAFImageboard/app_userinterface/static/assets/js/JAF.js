@@ -15,8 +15,27 @@ function messageHTMLConstructor(messageText, messageDate) {
         <hr>';
     return;
 }
-function submitFakeMessage() {
-    var form = document.getElementById("newMessageForm");
-    messageHTMLConstructor(form.elements[1].value);
-    form.elements[1].value = "";
-}
+
+$(document).ready(function(){
+
+    $(".label").click( function() {
+        $(this).hide();
+    });
+
+    $("#newMessageForm").on("submit", function(event) {
+        event.preventDefault();
+        $.ajax({
+            type: "POST",
+            url: window.location.pathname,
+            data: $(this).serialize(),
+            beforeSend: function() {
+                $(this).hide();
+            },
+            success: function(data) {
+                messageHTMLConstructor(data.messageText, data.messageDate);
+                document.getElementById("id_message_text")["value"] = "";
+                $(this).show();
+            }
+        })
+    });
+});
