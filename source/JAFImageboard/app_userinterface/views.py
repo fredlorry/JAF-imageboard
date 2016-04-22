@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.views.generic import View, TemplateView, RedirectView, ListView
+from django.utils import formats
 
 from .models import MessageModel, TopicModel, ThreadModel
 from .forms import MessageForm, NewThreadForm
@@ -85,8 +86,9 @@ class ThreadpageView(ListView):
             fresh_message.save()
         model = MessageModel.objects.filter(thr=kwargs["thr"]).latest("pk")
         response = {}
+        response["messageId"] = model.id
         response["messageText"] = model.text
-        response["messageDate"] = str(model.date)
+        response["messageDate"] = formats.date_format(model.date, "DATETIME_FORMAT")
         return JsonResponse(response)
 
 
