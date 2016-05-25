@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.views.generic import View, TemplateView, RedirectView, ListView
 from django.utils import formats
+from django.forms.models import model_to_dict
 
 from .models import MessageModel, TopicModel, ThreadModel
 from .forms import MessageForm, NewThreadForm
@@ -26,8 +27,8 @@ class ThreadlistView(ListView):
     context_object_name = "threads"
 
     def get_queryset(self):
-        self.tpc = get_object_or_404(TopicModel, name=self.kwargs["tpc"])
-        return ThreadModel.objects.filter(tpc=self.tpc).order_by("-id")
+        _tpc = get_object_or_404(TopicModel, name=self.kwargs["tpc"])
+        return ThreadModel.objects.filter(tpc=_tpc).order_by("-id")
     
     def get_context_data(self):
         context = super(ListView, self).get_context_data()
@@ -39,7 +40,7 @@ class ThreadlistView(ListView):
 
 class NewThreadView(RedirectView):
     """Create new thread and redirect to it."""
-    url="/"
+    url = "/"
     def post(self, request, *args, **kwargs):
         form = NewThreadForm(request.POST)
         if form.is_valid():
@@ -63,8 +64,8 @@ class ThreadpageView(ListView):
     context_object_name = "messages"
 
     def get_queryset(self):
-        self.thr = get_object_or_404(ThreadModel, id=self.kwargs["thr"])
-        return MessageModel.objects.filter(thr=self.thr)
+        _thr = get_object_or_404(ThreadModel, id=self.kwargs["thr"])
+        return MessageModel.objects.filter(thr=_thr)
 
     def get_context_data(self):
         context = super(ListView, self).get_context_data()
@@ -72,24 +73,31 @@ class ThreadpageView(ListView):
         context["thr_title"] = ThreadModel.objects.get(id=self.kwargs["thr"]).title
         context["tpc"] = self.kwargs["tpc"]
         context["title"] = "/" + self.kwargs["tpc"] + "/"
+        context["last_msg_id"] = context["messages"].reverse()[0]
         context["form"] = MessageForm()
         return context
 
     def post(self, request, *args, **kwargs):
-        form = MessageForm(request.POST)
-        if form.is_valid():
-            fresh_message = MessageModel(text=form.cleaned_data["message_text"],
-                                        author_ip=request.META["REMOTE_ADDR"],
-                                        tpc=TopicModel.objects.get(name=kwargs["tpc"]),
-                                        thr=ThreadModel.objects.get(id=kwargs["thr"])
-                                        )
-            fresh_message.save()
-        model = MessageModel.objects.filter(thr=kwargs["thr"]).latest("pk")
-        response = {}
-        response["messageId"] = model.id
-        response["messageText"] = model.text
-        response["messageDate"] = formats.date_format(model.date, "DATETIME_FORMAT")
-        return JsonResponse(response)
+        if ("message_text" in request.POST):
+            form = MessageForm(request.POST)
+            if form.is_valid():
+                fresh_message = MessageModel(text=form.cleaned_data["message_text"],
+                                            author_ip=request.META["REMOTE_ADDR"],
+                                            tpc=TopicModel.objects.get(name=kwargs["tpc"]),
+                                            thr=ThreadModel.objects.get(id=kwargs["thr"])
+                                            )
+                fresh_message.save()
+        _thr = get_object_or_404(ThreadModel, id=self.kwargs["thr"])
+        q = MessageModel.objects.filter(thr=_thr)
+        q = q.filter(id__gt=request.POST["last_msg_id"])
+        response = []
+        d = {}
+        for message in q:
+            d["id"] = message.id
+            d["text"] = message.text
+            d["date"] = formats.date_format(message.date, format="DATETIME_FORMAT")
+            response.append(d)
+        return JsonResponse(response, safe=False)
 
 
 class RedirectToHomepage(RedirectView):

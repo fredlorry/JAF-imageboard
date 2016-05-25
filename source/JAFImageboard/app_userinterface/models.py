@@ -33,5 +33,9 @@ class MessageModel(models.Model):
     tpc = models.ForeignKey(TopicModel,
                             on_delete = models.CASCADE,
                             verbose_name = "topic")
+
+    class Meta:
+        ordering = ["id"]
+
     def __str__(self):
         return str(self.id)
