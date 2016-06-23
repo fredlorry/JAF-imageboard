@@ -1,4 +1,4 @@
-function messageHTMLConstructor(messageId, messageText, messageDate) {
+function messageHTMLConstructor(messageId, messageText, messageDate, messageURL) {
     if (messageDate == undefined) {
         messageDate = Date();
     };
@@ -13,21 +13,28 @@ function messageHTMLConstructor(messageId, messageText, messageDate) {
             </span> \
             <p class="carrot">' + messageText + '</p> \
         <hr>';
+        if (messageURL.length) {
+            document.getElementById("Message list").innerHTML += 
+                '<img src="' + messageURL + '"> \
+                <hr>';
+        }
     return;
 }
 
 $(document).ready(function(){
 
-    $(".label").click( function() {
-        $(this).hide();
-    });
+    $('#id_text').addClass('form-control form-control-carrot form-control-carrot-msg');
+    $('#id_pic_rel').wrap('<label class="label label-default carrot" </label>');
+    $('#id_pic_rel')["style"] = 'display: none;';
 
     $("#newMessageForm").on("submit", function(event) {
         event.preventDefault();
         $.ajax({
             type: "POST",
             url: window.location.pathname,
-            data: $(this).serialize(),
+            data: new FormData( this ),
+            processData: false,
+            contentType: false,
             beforeSend: function() {
                 $(this).hide();
             },
@@ -36,12 +43,13 @@ $(document).ready(function(){
                     $("#uselessMessage").remove();
                 };
                 for (i = 0; i < data.length; i++) {
-                    messageHTMLConstructor(data[i].id, data[i].text, data[i].date);
+                    messageHTMLConstructor(data[i].id, data[i].text, data[i].date, data[i].url);
                     if (i == data.length - 1) {
                         document.getElementById("last_msg_id")["value"] = data[i].id;
                     }
                 }
-                document.getElementById("id_message_text")["value"] = "";
+                document.getElementById("id_text")["value"] = "";
+                document.getElementById("id_pic_rel")["value"] = "";
                 $(this).show();
             }
         })
@@ -61,7 +69,7 @@ $(document).ready(function(){
             },
             success: function(data) {
                 for (i = 0; i < data.length; i++) {
-                    messageHTMLConstructor(data[i].id, data[i].text, data[i].date);
+                    messageHTMLConstructor(data[i].id, data[i].text, data[i].date, data[i].url);
                     if (i == data.length - 1) {
                         document.getElementById("last_msg_id")["value"] = data[i].id;
                     }

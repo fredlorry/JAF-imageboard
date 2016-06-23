@@ -26,6 +26,10 @@
             </span>
             <p class="carrot">{{ message.text }}</p>
         <hr>
+        {% if message.pic_rel == None %}
+        <img src="/static/{{ message.pic_rel.url }}">
+        <hr>
+        {% endif %}
         {% endfor %}
 {% else %}
     <div id="uselessMessage">
@@ -44,7 +48,7 @@
 
 <form action="/{{  tpc }}/{{  thr }}/" method="post" class="form-group" id="newMessageForm">
     {% csrf_token %}
-    {{ form.message_text|attr:"class:form-control form-control-carrot form-control-carrot-msg" }}
+    {{ form }}
     <input type="hidden" name="last_msg_id" id="last_msg_id" value="{{ last_msg_id }}">
 </form>
 <hr>

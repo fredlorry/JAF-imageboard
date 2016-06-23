@@ -81,14 +81,13 @@ class ThreadpageView(ListView):
         return context
 
     def post(self, request, *args, **kwargs):
-        if ("message_text" in request.POST):
-            form = MessageForm(request.POST)
+        if ("text" in request.POST):
+            form = MessageForm(request.POST, request.FILES or None)
             if form.is_valid():
-                fresh_message = MessageModel(text=form.cleaned_data["message_text"],
-                                            author_ip=request.META["REMOTE_ADDR"],
-                                            tpc=TopicModel.objects.get(name=kwargs["tpc"]),
-                                            thr=ThreadModel.objects.get(id=kwargs["thr"])
-                                            )
+                fresh_message = form.save(commit=False)
+                fresh_message.author_ip=request.META["REMOTE_ADDR"]
+                fresh_message.tpc=TopicModel.objects.get(name=kwargs["tpc"])
+                fresh_message.thr=ThreadModel.objects.get(id=kwargs["thr"])
                 fresh_message.save()
         _thr = get_object_or_404(ThreadModel, id=self.kwargs["thr"])
         q = MessageModel.objects.filter(thr=_thr)
@@ -99,6 +98,7 @@ class ThreadpageView(ListView):
             d["id"] = message.id
             d["text"] = message.text
             d["date"] = formats.date_format(message.date, format="DATETIME_FORMAT")
+            d["url"] = '/static/' + message.pic_rel.name
             response.append(d)
         return JsonResponse(response, safe=False)
 

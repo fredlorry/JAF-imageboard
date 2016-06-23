@@ -8,6 +8,10 @@
     margin-top:0;
 }
 
+img {
+    height: auto;
+    max-width: 60%;
+}
 
 .wrapper {
     text-align: center;
@@ -37,6 +41,7 @@
 
 .carrot {
     color: #FC574C;
+    background-color: rgb(255, 207, 185);
     text-align: center;
 }
 
