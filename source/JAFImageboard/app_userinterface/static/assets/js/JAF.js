@@ -32,6 +32,9 @@ $(document).ready(function(){
                 $(this).hide();
             },
             success: function(data) {
+                if ($("#uselessMessage").length > 0) {
+                    $("#uselessMessage").remove();
+                };
                 for (i = 0; i < data.length; i++) {
                     messageHTMLConstructor(data[i].id, data[i].text, data[i].date);
                     if (i == data.length - 1) {
@@ -46,6 +49,9 @@ $(document).ready(function(){
 
     $("#refreshButton").on("click", function(event) {
         event.preventDefault();
+        if ($("#uselessMessage").length > 0) {
+            $("#uselessMessage").remove();
+        };
         $.ajax({
             type: "POST",
             url: window.location.pathname,

@@ -12,8 +12,8 @@
         <p class="thread"> {{ thr_title }} </p class="thread">
     </span>
 </div>
+<div id="Message list">
 {% if messages %}
-    <div id="Message list">
         {% for message in messages %}
         <hr>
             <span class="label label-default">
@@ -27,12 +27,14 @@
             <p class="carrot">{{ message.text }}</p>
         <hr>
         {% endfor %}
-    </div>
 {% else %}
+    <div id="uselessMessage">
     <hr>
         <p>No messages are available for this thread.</p>
     <hr>
+    </div>
 {% endif %}
+</div>
 <span class="label label-default">
     <h4>
         Your message:

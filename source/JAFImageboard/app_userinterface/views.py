@@ -44,7 +44,7 @@ class NewThreadView(RedirectView):
     def post(self, request, *args, **kwargs):
         form = NewThreadForm(request.POST)
         if form.is_valid():
-            fresh_thread = ThreadModel(title=request.POST["title"],
+            fresh_thread = ThreadModel(title=request.POST["thread_title"],
                                         tpc=TopicModel.objects.get(name=kwargs["tpc"])
                                         )
             fresh_thread.save()
@@ -73,7 +73,10 @@ class ThreadpageView(ListView):
         context["thr_title"] = ThreadModel.objects.get(id=self.kwargs["thr"]).title
         context["tpc"] = self.kwargs["tpc"]
         context["title"] = "/" + self.kwargs["tpc"] + "/"
-        context["last_msg_id"] = context["messages"].reverse()[0]
+        if context["messages"]:
+            context["last_msg_id"] = context["messages"].reverse()[0]
+        else:
+            context["last_msg_id"] = 0
         context["form"] = MessageForm()
         return context
 
